@@ -10,6 +10,7 @@ type OrderItemService interface {
 	FindAll() ([]models.OrderItem, error)
 	FindByID(id uint) (models.OrderItem, error)
 	Update(item *models.OrderItem) error
+	Delete(id uint) error
 }
 
 type orderItemService struct {
@@ -36,4 +37,8 @@ func (s *orderItemService) FindByID(id uint) (models.OrderItem, error) {
 func (s *orderItemService) Update(item *models.OrderItem) error {
 	item.Subtotal = float64(item.Quantity) * item.Product.Price
 	return s.repo.Update(item)
+}
+
+func (s *orderItemService) Delete(id uint) error {
+	return s.repo.Delete(id)
 }
