@@ -44,3 +44,18 @@ func (h *OrderItemHandler) GetByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, item)
 }
+
+func (h *OrderItemHandler) Update(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var item models.OrderItem
+	if err := c.ShouldBindJSON(&item); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	item.ID = uint(id)
+	if err := h.service.Update(&item); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update failed"})
+		return
+	}
+	c.JSON(http.StatusOK, item)
+}

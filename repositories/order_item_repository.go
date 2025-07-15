@@ -9,6 +9,7 @@ type OrderItemRepository interface {
 	Create(item *models.OrderItem) error
 	FindAll() ([]models.OrderItem, error)
 	FindByID(id uint) (models.OrderItem, error)
+	Update(item *models.OrderItem) error
 }
 
 type orderItemRepo struct {
@@ -33,4 +34,8 @@ func (r *orderItemRepo) FindByID(id uint) (models.OrderItem, error) {
 	var item models.OrderItem
 	err := r.db.Preload("Order").Preload("Product").First(&item, id).Error
 	return item, err
+}
+
+func (r *orderItemRepo) Update(item *models.OrderItem) error {
+	return r.db.Save(item).Error
 }

@@ -11,6 +11,7 @@ func SetupRouter(orderItemHandler *handlers.OrderItemHandler) *gin.Engine {
 	r.POST("/order-items", orderItemHandler.Create)
 	r.GET("/order-items", orderItemHandler.GetAll)
 	r.GET("/order-items/:id", orderItemHandler.GetByID)
+	r.PUT("/order-items/:id", orderItemHandler.Update)
 
 	return r
 }
