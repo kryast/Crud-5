@@ -8,5 +8,7 @@ import (
 func SetupRouter(orderItemHandler *handlers.OrderItemHandler) *gin.Engine {
 	r := gin.Default()
 
+	r.POST("/order-items", orderItemHandler.Create)
+
 	return r
 }
